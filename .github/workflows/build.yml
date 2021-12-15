@@ -33,9 +33,11 @@ jobs:
       - name: Run Test Suite
         run: |
           pytest --cov=./pygc --cov-report=xml
-      - name: Check Coverage Output
-        run: |
-          ls -a
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: ./*.xml
       - name: "Upload coverage to Codecov"
         uses: codecov/codecov-action@v1
         with:
@@ -67,6 +69,11 @@ jobs:
       - name: Run Test Suite
         run: |
           pytest --cov=pygc --cov-report=xml
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: ./*.xml
       - name: "Upload coverage to Codecov"
         uses: codecov/codecov-action@v1
         with:
